@@ -15,6 +15,8 @@ public class Cart {
 		this.itemCnt = itemCnt;
 	}
 	
-
+	public String createToData() {
+		return "%d/%s/%d/%d".formatted(cartNum,id,itemNum,itemCnt);
+	}
 
 }

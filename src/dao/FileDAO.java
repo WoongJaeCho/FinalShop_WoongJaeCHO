@@ -64,19 +64,20 @@ public class FileDAO {
 	}
 	
 	private void saveToFileData(FileName name, String data) {
-		try(FileWriter fw = new FileWriter(CUR_PATH+name)) {
+		try(FileWriter fw = new FileWriter(CUR_PATH+name.getName())) {
 			fw.write(data);
-			System.out.println(name+" 파일 저장 성공");
+			System.out.println(name.getName()+" 파일 저장 성공");
 		} catch (Exception e) {
-			System.out.println(name+" 파일 저장 실패");
+			System.out.println(name.getName()+" 파일 저장 실패");
 		}
 	}
 	
 	public void saveToFile() { // 파일 저장 main
-		String boardData = null;
-		String memberData = null;
-		String itemData = null;
-		String cartData = null;
+		init();
+		String boardData = boardDAO.saveToData();
+		String memberData = memberDAO.saveToData();
+		String itemData = itemDAO.saveToData();
+		String cartData = cartDAO.saveToData();
 		
 		saveToFileData(FileName.BOARD, boardData);
 		saveToFileData(FileName.MEMBER, memberData);
@@ -85,8 +86,10 @@ public class FileDAO {
 	}
 	
 	private String loadToFileData(FileName name) { // 파일 로드 sub
-		try(FileReader fr = new FileReader(CUR_PATH+name);
+		System.out.println(CUR_PATH+name.getName());
+		try(FileReader fr = new FileReader(CUR_PATH+name.getName());
 				BufferedReader br = new BufferedReader(fr);) {
+			System.out.println("*");
 			String data = "";
 			while(true) {
 				int read = br.read();
@@ -94,24 +97,29 @@ public class FileDAO {
 				
 				data += (char)read;
 			}
-			System.out.println(name+" 파일 로드 성공");
+			System.out.println(name.getName()+" 파일 로드 성공");
 			return data;
 		} catch (Exception e) {
-			System.out.println(name+" 파일 로드 성공");
+			System.out.println(name.getName()+" 파일 로드 실패");
 			return null;
 		}
 	}
 	
 	public void loadToFile() { // 파일 로드 main
+		init();
 		String boardData = loadToFileData(FileName.BOARD);
 		String memberData = loadToFileData(FileName.MEMBER);
 		String itemData = loadToFileData(FileName.ITEM);
 		String cartData = loadToFileData(FileName.CART);
+		//System.out.println(boardData);
 		
 		boardDAO.loadToData(boardData);
 		cartDAO.loadToData(cartData);
 		itemDAO.loadToData(itemData);
 		memberDAO.loadToData(memberData);
+		
+		//boradNum max값 구하기
+		//memberNum max값 구하기
 	}
 	
 

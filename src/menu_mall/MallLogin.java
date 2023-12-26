@@ -19,7 +19,7 @@ public class MallLogin implements MenuCommand {
 		MemberDAO dao = MemberDAO.getInstance();
 
 		String id = Util.getValue("아이디 ");
-		String pw = Util.getValue("패스워드 ");
+		String pw = Util.getValue("비밀번호 ");
 	
 		if (dao.isValidMember(id, pw)!=null) {
 			if (id.equals("admin")) {

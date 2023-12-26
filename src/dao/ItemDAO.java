@@ -5,9 +5,16 @@ import java.util.ArrayList;
 import dto.Item;
 
 public class ItemDAO {
-	private ArrayList<Item> itemList;
+	private ArrayList<Item> itemList = new ArrayList<Item>();
 	
-
+	
+	public String saveToData() {
+		String data="";
+		for(Item i : itemList) {
+			data+=i.createToData();
+		}
+		return data;
+	}
 	public void loadToData(String data) {
 		String[] temp = data.split("\n");
 		//cnt = temp.length;

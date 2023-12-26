@@ -5,9 +5,16 @@ import java.util.ArrayList;
 import dto.Board;
 
 public class BoardDAO {
-	private ArrayList<Board> boardList;
+	private ArrayList<Board> boardList = new ArrayList<Board>();
 	
-
+	public String saveToData() {
+		String data="";
+		for(Board b : boardList) {
+			data+=b.createToData();
+		}
+		return data;
+	}
+	
 	public void loadToData(String data) {
 		String[] temp = data.split("\n");
 		//cnt = temp.length;
@@ -22,5 +29,4 @@ public class BoardDAO {
 			boardList.add(b);
 		}
 	}
-
 }

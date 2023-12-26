@@ -1,9 +1,11 @@
 package controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import _mall.MenuCommand;
+import dao.FileDAO;
 import menu_admin.AdminBoard;
 import menu_admin.AdminItem;
 import menu_admin.AdminMember;
@@ -50,6 +52,9 @@ public class MallController {
 	}
 
 	public void init() {
+		FileDAO fileDAO =  FileDAO.getInstance();
+		fileDAO.loadToFile();
+		
 		mapCont = new HashMap<>();
 		mapCont.put("MallMain", new _MallMain());
 		mapCont.put("MallJoin", new MallJoin());

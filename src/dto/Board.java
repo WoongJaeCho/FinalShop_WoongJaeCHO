@@ -19,6 +19,9 @@ public class Board {
 		this.hits = hits;
 	}
 
+	public String createToData() {
+		return "%d/%s/%s/%s/%s/%d".formatted(boradNum,title,contents,id,date,hits);
+	}
 	
 
 }

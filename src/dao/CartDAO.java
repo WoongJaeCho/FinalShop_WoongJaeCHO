@@ -5,8 +5,16 @@ import java.util.ArrayList;
 import dto.Cart;
 
 public class CartDAO {
-	private ArrayList<Cart> cartList;
+	private ArrayList<Cart> cartList = new ArrayList<Cart>();
 	
+	
+	public String saveToData() {
+		String data="";
+		for(Cart c : cartList) {
+			data+=c.createToData();
+		}
+		return data;
+	}
 	
 	public void loadToData(String data) {
 		String[] temp = data.split("\n");
