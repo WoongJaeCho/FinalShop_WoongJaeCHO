@@ -6,24 +6,28 @@ import dto.Member;
 
 public class MemberDAO {
 	
-	private int cnt;
 	private static MemberDAO instance = new MemberDAO();
+	private static int cnt;
 	
 	public static MemberDAO getInstance() {
 		return instance;
 	}
 	
-	private ArrayList<Member> memberList = new ArrayList<Member>();
+	private static ArrayList<Member> memberList = new ArrayList<Member>();
 	
 	public String isValidMember(String id, String pw) {
-		
-		
+		for(Member m : memberList) {
+			if(m.getId().equals(id) && m.getPw().equals(pw)) {
+				return id;
+			}
+		}
 		return null;
 	}
 	
 	public void joinMember(String id,String pw,String name) {
-		Member.setNum(Member.getNum()+1);
-		Member m = new Member(Member.getNum(),id,pw,name);
+		Member mm = new Member();
+		mm.setNum(mm.getNum()+1);
+		Member m = new Member(mm.getNum(),id,pw,name);
 		memberList.add(m);
 		System.out.print(m);
 		System.out.println(" 추가 완료");
@@ -49,9 +53,9 @@ public class MemberDAO {
 	
 	public void loadToData(String data) {
 		String[] temp = data.split("\n");
-		//cnt = temp.length;
+		cnt = temp.length;
 		
-		for(int i=0; i<temp.length ;i+=1) {
+		for(int i=0; i<cnt ;i+=1) {
 			String[] info = temp[i].split("/");
 			
 			int memberNum = Integer.parseInt(info[0]);
@@ -61,5 +65,15 @@ public class MemberDAO {
 		}
 	}
 	
+	public static void updateMaxNo() {
+		if(cnt==0) return;
+		int maxNo = 0;
+		for(Member m : memberList) {
+			if(maxNo < m.getNum()) {
+				maxNo = m.getNum();
+				m.setNum(maxNo);
+			}
+		}
+	}
 	
 }

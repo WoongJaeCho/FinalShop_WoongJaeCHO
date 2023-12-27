@@ -20,8 +20,16 @@ public class Board {
 	}
 
 	public String createToData() {
-		return "%d/%s/%s/%s/%s/%d".formatted(boradNum,title,contents,id,date,hits);
+		return "%d/%s/%s/%s/%s/%d\n".formatted(boradNum,title,contents,id,date,hits);
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		Board.num = num;
 	}
 	
-
+	
 }

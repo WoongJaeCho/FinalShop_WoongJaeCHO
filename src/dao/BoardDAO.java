@@ -3,9 +3,17 @@ package dao;
 import java.util.ArrayList;
 
 import dto.Board;
+import dto.Member;
 
 public class BoardDAO {
-	private ArrayList<Board> boardList = new ArrayList<Board>();
+	
+	private static BoardDAO instance = new BoardDAO();
+	private static int cnt;
+	
+	public static BoardDAO getInstance() {
+		return instance;
+	}
+	private static ArrayList<Board> boardList = new ArrayList<Board>();
 	
 	public String saveToData() {
 		String data="";
@@ -27,6 +35,17 @@ public class BoardDAO {
 			
 			Board b = new Board(boradNum, info[1], info[2], info[3], info[4], hits);
 			boardList.add(b);
+		}
+	}
+	
+	public void updateMaxNo() {
+		if(cnt==0) return;
+		int maxNo = 0;
+		for(Board b : boardList) {
+			if(maxNo < b.getNum()) {
+				maxNo = b.getNum();
+				b.setNum(maxNo);
+			}
 		}
 	}
 }

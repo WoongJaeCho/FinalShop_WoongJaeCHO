@@ -16,12 +16,12 @@ public class MallLogin implements MenuCommand {
 
 	@Override
 	public boolean update() {
-		MemberDAO dao = MemberDAO.getInstance();
+		MemberDAO memberDAO = MemberDAO.getInstance();
 
 		String id = Util.getValue("아이디 ");
 		String pw = Util.getValue("비밀번호 ");
 	
-		if (dao.isValidMember(id, pw)!=null) {
+		if (memberDAO.isValidMember(id, pw)!=null) {
 			if (id.equals("admin")) {
 				cont.setLoginId("admin");
 				cont.setNext("AdminMain");

@@ -16,7 +16,7 @@ public class Cart {
 	}
 	
 	public String createToData() {
-		return "%d/%s/%d/%d".formatted(cartNum,id,itemNum,itemCnt);
+		return "%d/%s/%d/%d\n".formatted(cartNum,id,itemNum,itemCnt);
 	}
 
 }

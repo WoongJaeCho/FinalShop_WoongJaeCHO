@@ -7,6 +7,8 @@ public class Member {
 	private String pw;
 	private String memberName;
 	
+	public Member() {}
+	
 	public Member(int memberNum, String id, String pw, String memberName) {
 		super();
 		this.memberNum = memberNum;
@@ -16,7 +18,7 @@ public class Member {
 	}
 
 	public String createToData() {
-		return "%d/%s/%s/%s".formatted(memberNum,id,pw,memberName);
+		return "%d/%s/%s/%s\n".formatted(memberNum,id,pw,memberName);
 	}
 
 	public String getId() {
@@ -31,11 +33,11 @@ public class Member {
 		this.pw = pw;
 	}
 
-	public static int getNum() {
+	public int getNum() {
 		return num;
 	}
 
-	public static void setNum(int num) {
+	public void setNum(int num) {
 		Member.num = num;
 	}
 
@@ -43,6 +45,7 @@ public class Member {
 	public String toString() {
 		return "[%4d] [%10s] [%10s] [%10s]".formatted(memberNum,id,pw,memberName);
 	}
+	
 	
 	
 }

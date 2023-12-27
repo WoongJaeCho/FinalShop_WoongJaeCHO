@@ -5,7 +5,15 @@ import java.util.ArrayList;
 import dto.Cart;
 
 public class CartDAO {
-	private ArrayList<Cart> cartList = new ArrayList<Cart>();
+	
+	private static CartDAO instance = new CartDAO();
+	private static int cnt;
+	
+	public static CartDAO getInstance() {
+		return instance;
+	}
+	
+	private static ArrayList<Cart> cartList = new ArrayList<Cart>();
 	
 	
 	public String saveToData() {

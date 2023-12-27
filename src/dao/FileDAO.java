@@ -73,7 +73,6 @@ public class FileDAO {
 	}
 	
 	public void saveToFile() { // 파일 저장 main
-		init();
 		String boardData = boardDAO.saveToData();
 		String memberData = memberDAO.saveToData();
 		String itemData = itemDAO.saveToData();
@@ -86,10 +85,8 @@ public class FileDAO {
 	}
 	
 	private String loadToFileData(FileName name) { // 파일 로드 sub
-		System.out.println(CUR_PATH+name.getName());
 		try(FileReader fr = new FileReader(CUR_PATH+name.getName());
 				BufferedReader br = new BufferedReader(fr);) {
-			System.out.println("*");
 			String data = "";
 			while(true) {
 				int read = br.read();
@@ -111,15 +108,14 @@ public class FileDAO {
 		String memberData = loadToFileData(FileName.MEMBER);
 		String itemData = loadToFileData(FileName.ITEM);
 		String cartData = loadToFileData(FileName.CART);
-		//System.out.println(boardData);
 		
 		boardDAO.loadToData(boardData);
 		cartDAO.loadToData(cartData);
 		itemDAO.loadToData(itemData);
 		memberDAO.loadToData(memberData);
 		
-		//boradNum max값 구하기
-		//memberNum max값 구하기
+		memberDAO.updateMaxNo(); //boradNum max값 구하기
+		boardDAO.updateMaxNo();  //memberNum max값 구하기
 	}
 	
 

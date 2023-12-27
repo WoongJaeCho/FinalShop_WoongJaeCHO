@@ -5,7 +5,15 @@ import java.util.ArrayList;
 import dto.Item;
 
 public class ItemDAO {
-	private ArrayList<Item> itemList = new ArrayList<Item>();
+	
+	private static ItemDAO instance = new ItemDAO();
+	private static int cnt;
+	
+	public static ItemDAO getInstance() {
+		return instance;
+	}
+	
+	private static ArrayList<Item> itemList = new ArrayList<Item>();
 	
 	
 	public String saveToData() {

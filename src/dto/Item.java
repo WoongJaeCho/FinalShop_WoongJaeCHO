@@ -16,7 +16,7 @@ public class Item {
 	}
 
 	public String createToData() {
-		return "%d/%s/%s/%d".formatted(itemNum,categoryName,itemName,price);
+		return "%d/%s/%s/%d\n".formatted(itemNum,categoryName,itemName,price);
 	}
 	
 }
