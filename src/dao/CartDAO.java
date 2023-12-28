@@ -33,9 +33,8 @@ public class CartDAO {
 			}
 			int itemCnt = Util.getValue("아이템 구매 수량", 1, 100);
 			int cartNum = Cart.getNum()+1;
-			Cart cart = new Cart();
-			cart.setNum(cartNum);
 			Cart c = new Cart(cartNum, id, itemNum, itemCnt);
+			c.setNum(cartNum);
 			cartList.add(c);
 			System.out.printf("[ %s %d개 구매 완료 ]\n",itemName,itemCnt);
 			cnt++;
@@ -43,7 +42,7 @@ public class CartDAO {
 		}
 	}
 	
-	public void printOneShoppingList(ItemDAO itemDAO,String id) {
+	public boolean printOneShoppingList(ItemDAO itemDAO,String id) {
 		int idx = 0;
 		int total = 0;
 		int total_cnt =0;
@@ -55,7 +54,11 @@ public class CartDAO {
 				itemNumList.add(c.getItemNum());
 			}
 		}
-		
+		if(itemNumList.size()==0) {
+			System.out.println("구매 내역이 없습니다. 구매해주세요");
+			System.out.println("=====================");
+			return false;
+		}
 		for(Integer in : itemNumList) {
 			
 			for(Cart c : cartList) {
@@ -76,12 +79,24 @@ public class CartDAO {
 		
 		System.out.println("=====================");
 		System.out.printf("총 %d 개 ( %d 원 )\n",total_cnt,total);
+		return true;
 	}
 	
-	public void soldItemList() {
-		for(Cart c : cartList) {
-			//@@@@@@@@@@@@@@@@@@@@########
+	public void printSaleList(ItemDAO itemDAO) {
+		System.out.println("===== 판매된 아이템 목록 =====");
+		ArrayList<Integer> itemNumList = new ArrayList<Integer>();
+		for(int i=1; i<=itemDAO.getCnt() ;i+=1) {
+			int sum = 0;
+			for(Cart c : cartList) {
+				if(i==c.getItemNum()) {
+					sum+=c.getItemCnt();
+				}
+			}
+			itemNumList.add(sum);
+			sum = 0;
 		}
+		System.out.println(itemNumList);
+		// 판매 갯수 합 구해서 내림차순으로 출력할 것.
 	}
 	
 	public void deleteOneItem(int itemNum) {

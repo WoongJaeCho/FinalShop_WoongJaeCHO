@@ -33,7 +33,7 @@ public class AdminItem implements MenuCommand {
 		} else if (sel == 2) { // 아이템 삭제
 			itemDAO.deleteOneItme(cartDAO);
 		} else if (sel == 3) { // 총 매출 아이템 갯수 (판매량 순)
-			itemDAO.printSaleList(cartDAO);
+			cartDAO.printSaleList(itemDAO);
 		} else if (sel == 4) {
 			cont.setNext("AdminMain"); //adminmain 화면
 		}

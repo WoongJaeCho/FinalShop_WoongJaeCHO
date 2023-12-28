@@ -9,6 +9,8 @@ public class Board {
 	private String contents;
 	private int hits;
 	
+	public Board() {}
+
 	public Board(int boradNum, String title, String contents, String id, String date, int hits) {
 		super();
 		this.boradNum = boradNum;

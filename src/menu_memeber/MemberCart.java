@@ -23,18 +23,19 @@ public class MemberCart implements MenuCommand {
 		String id = cont.getLoginId();
 		CartDAO cartDAO = CartDAO.getInstance();
 		ItemDAO itemDAO = ItemDAO.getInstance();
-		cartDAO.printOneShoppingList(itemDAO,id);
-		
-		int sel = Util.getValue("메뉴 ", 0, 2);
-		if (sel == 0) {
-			System.out.println("[ 프로그램 종료 ]");
-			cont.setNext(null);
+		if(cartDAO.printOneShoppingList(itemDAO,id)) {
+			int sel = Util.getValue("메뉴 ", 0, 2);
+			if (sel == 0) {
+				System.out.println("[ 프로그램 종료 ]");
+				cont.setNext(null);
+			}
+			else if (sel == 1) { 
+				cont.setNext("MemberShopping"); 
+			} else if (sel == 2) { // 멤버 화면 돌아가기
+				cont.setNext("MemberMain"); 
+			} 
 		}
-		else if (sel == 1) { 
-			cont.setNext("MemberShopping"); 
-		} else if (sel == 2) { // 멤버 화면 돌아가기
-			cont.setNext("MemberMain"); 
-		} 
+		cont.setNext("MemberMain");
 		return false;
 	}
 

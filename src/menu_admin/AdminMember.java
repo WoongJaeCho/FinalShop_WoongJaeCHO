@@ -21,6 +21,7 @@ public class AdminMember implements MenuCommand {
 	public boolean update() {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		CartDAO cartDAO = CartDAO.getInstance();
+		String id = cont.getLoginId();
 		
 		int sel = Util.getValue("메뉴 ", 0, 3);
 		if (sel == 0) {
@@ -29,7 +30,7 @@ public class AdminMember implements MenuCommand {
 		} else if (sel == 1) { // 회원 목록 출력
 			memberDAO.printMember();
 		} else if (sel == 2) { // 회원 삭제
-			if(memberDAO.deleteMember(cartDAO)) {
+			if(memberDAO.deleteMember(cartDAO, id)) {
 				System.out.println(" 회원 삭제 완료");
 			} else {
 				System.out.println(" 회원 삭제 실패");

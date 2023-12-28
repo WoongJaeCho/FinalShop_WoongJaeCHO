@@ -1,12 +1,9 @@
 package menu_memeber;
 
-import java.util.ArrayList;
-
 import _mall.MenuCommand;
 import controller.MallController;
 import dao.CartDAO;
 import dao.ItemDAO;
-import util.Util;
 
 public class MemberShopping implements MenuCommand {
 	private MallController cont;
@@ -28,7 +25,7 @@ public class MemberShopping implements MenuCommand {
 		String id = cont.getLoginId();
 				
 		cartDAO.choiceShoppingList(itemDAO,id);
-		cont.setNext("MemberMain"); 
+		cont.setNext("MemberCart"); 
 		return false;
 	}
 

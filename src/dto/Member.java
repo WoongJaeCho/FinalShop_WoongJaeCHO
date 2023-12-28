@@ -33,7 +33,7 @@ public class Member {
 		this.pw = pw;
 	}
 
-	public int getNum() {
+	public static int getNum() {
 		return num;
 	}
 

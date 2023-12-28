@@ -20,6 +20,7 @@ public class Util {
 			try {
 				int input = scan.nextInt();
 				if(input<start||input>end) {
+					System.out.printf("%d ~ %d 값 입력해주세요\n",start,end);
 					continue;
 				}
 				return input;

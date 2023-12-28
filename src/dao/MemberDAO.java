@@ -60,9 +60,9 @@ public class MemberDAO {
 	}
 	
 	public void joinMember(String id,String pw,String name) {
-		Member mem = new Member();
-		mem.setNum(mem.getNum()+1);
-		Member m = new Member(mem.getNum(),id,pw,name);
+		int itemNum = Member.getNum()+1;
+		Member m = new Member(itemNum,id,pw,name);
+		m.setNum(itemNum+1);
 		memberList.add(m);
 		System.out.print(m);
 		System.out.println(" 추가 완료");
@@ -84,19 +84,24 @@ public class MemberDAO {
 		}
 	}
 	
-	public boolean deleteMember(CartDAO cartDAO) {
+	public boolean deleteMember(CartDAO cartDAO, String id) {
 		System.out.println("회원 삭제시 구매 내역이 사라집니다");
-		String id = Util.getValue("삭제할 회원 아이디 ");
-		if(id.equals("admin")) {
-			System.out.println("관리자 삭제 불가능");
-			return false;
+		String delId = null;
+		if(!id.equals("admin")) {
+			delId = id;
+		} else {
+			delId = Util.getValue("삭제할 회원 아이디 ");
+			if(delId.equals("admin")) {
+				System.out.println("관리자 삭제 불가능");
+				return false;
+			}
 		}
-		int idx = checkId(id);
+		int idx = checkId(delId);
 		if(idx==-1) {
 			System.out.println("해당 아이디 존재하지 않음");
 			return false;
 		}
-		cartDAO.deleteOneMemberCart(id);
+		cartDAO.deleteOneMemberCart(delId);
 		memberList.remove(idx);
 		return true;
 	}

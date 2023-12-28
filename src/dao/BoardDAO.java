@@ -1,12 +1,9 @@
 package dao;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import dto.Board;
 import dto.Member;
@@ -35,7 +32,7 @@ public class BoardDAO {
 		for(int i=0; i<cnt; i+=1) {
 			if(boardList.get(i).getId().equals(id)) {
 				if(i==sel) {
-					return i;
+					return i-1;
 				}
 			}
 		}
@@ -43,17 +40,24 @@ public class BoardDAO {
 	}
 	
 	public void printOneMemberBoard(String id) {
+		int count = 0;
 		for(Board b : boardList) {
 			if(b.getId().equals(id)) {
 				System.out.printf("[%2d]",b.getBoradNum());
 				System.out.println(b);
+				System.out.println(b.getContents());
+				count+=1;
 			}
+		}
+		if(count==0) {
+			System.out.println("본인의 게시글이 없습니다.");
+			return;
 		}
 		System.out.println("[1] 삭제\n[0] 뒤로가기");
 		int sel = Util.getValue("메뉴 ", 0, 2);
 		if(sel==0) return;
 		else if(sel==1) {
-			int idx = checkIdx(id)-1;
+			int idx = checkIdx(id);
 			if(idx==-1) {
 				System.out.println("본인의 게시글만 삭제할 수 있습니다");
 				return;
@@ -69,16 +73,17 @@ public class BoardDAO {
 		System.out.println("[ 게시글 추가하기 ]");
 		String title = Util.getValue("게시글 제목 ");
 		String contents = Util.getValue("게시글 내용 ");
-		int boardNum = Board.getNum()+1 ; // 넘버 적용 해라
-		Member m = new Member();
-		m.setNum(boardNum);
-		//LocalDate today = LocalDate.now();
-		//Date date = new Date();
-	    //String today = DateFormatUtils.format(date, "yyyy-MM-dd");
-		String date = null ; // 날짜 해라
-		Board b = new Board(boardNum, title, contents, id, date, 0);
+		int boardNum = Board.getNum()+1 ;
+		Date date = new Date();
+		String today =
+		date.toInstant().atOffset(ZoneOffset.UTC)
+						.format(DateTimeFormatter
+						.ofPattern("yyyy-MM-dd"));
+		Board b = new Board(boardNum, title, contents, id, today, 0);
+		b.setNum(boardNum+1);
 		boardList.add(b);
 		cnt++;
+		System.out.print("["+boardNum+"]");
 		System.out.println(b);
 	}
 	
@@ -116,7 +121,7 @@ public class BoardDAO {
 				}
 			} else if(sel==3) {
 				sel = Util.getValue("게시글 번호 입력 ", start+1, end)-1;
-				System.out.printf("\n[%2d]",sel);
+				System.out.printf("\n[%2d]",sel+1);
 				boardList.get(sel).setHits(boardList.get(sel).getHits()+1);
 				System.out.println(boardList.get(sel));
 				System.out.println("-------------------------------------------------------------------");

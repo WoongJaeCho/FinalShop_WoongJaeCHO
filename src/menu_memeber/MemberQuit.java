@@ -22,13 +22,13 @@ public class MemberQuit implements MenuCommand{
 	public boolean update() {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		CartDAO cartDAO = CartDAO.getInstance();
-		
+		String id = cont.getLoginId();
 		int sel = Util.getValue("메뉴", 0, 2);
 		if(sel == 0) {
 			System.out.println("[ 프로그램 종료 ]");
 			cont.setNext(null);
 		} else if (sel == 1) {//회원 삭제 / 구매 내역 삭제
-			memberDAO.deleteMember(cartDAO);
+			memberDAO.deleteMember(cartDAO, id);
 			cont.setLoginId(null);
 			cont.setNext("MallMain");
 		} else if (sel == 2) {

@@ -1,8 +1,9 @@
 package dto;
 
 import java.util.Objects;
+import java.lang.String;
 
-public class Item {
+public class Item implements Comparable<Item>{
 	private static int num;
 	private int itemNum;
 	private String categoryName;
@@ -68,6 +69,18 @@ public class Item {
 		Item other = (Item) obj;
 		return Objects.equals(categoryName, other.categoryName) && Objects.equals(itemName, other.itemName)
 				&& itemNum == other.itemNum && price == other.price;
+	}
+
+	@Override
+	public int compareTo(Item o) {
+		if(categoryName.compareTo(o.categoryName)<0) {
+			return 1;
+		}else if(categoryName.compareTo(o.categoryName)>0) {
+			return -1;
+		}else {
+			return itemName.compareTo(o.itemName);
+		}
+		//return 0;
 	}
 	
 	

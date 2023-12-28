@@ -1,6 +1,8 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import dto.Item;
 import util.Util;
@@ -10,6 +12,9 @@ public class ItemDAO {
 	private static ItemDAO instance = new ItemDAO();
 	private static int cnt;
 	
+	public int getCnt() {
+		return cnt;
+	}
 	public static ItemDAO getInstance() {
 		return instance;
 	}
@@ -43,6 +48,7 @@ public class ItemDAO {
 		System.out.println("===== 카테고리별 아이템 목록 =====");
 		// 카테고리별 내림차순으로 정리할 것.
 		// 같은 카테고리 내에서 오름차순.
+		Collections.sort(itemList);
 		for(Item i : itemList) {
 			System.out.println(i);
 		}
@@ -100,13 +106,13 @@ public class ItemDAO {
 		String categoryName = Util.getValue("카테고리 ");
 		int price = Util.getValue("가격", 100, 1000000);
 		
-		Item item = new Item();
 		int itemNum = Item.getNum()+1;
 		Item i = new Item(itemNum, categoryName, itemName, price);
-		item.setNum(itemNum);
+		i.setNum(itemNum);
 		itemList.add(i);
 		cnt++;
 		System.out.println(i);
+		inputCategory(categoryName);
 		System.out.println("아이템 추가 완료");
 	}
 	
@@ -123,12 +129,6 @@ public class ItemDAO {
 		itemList.remove(idx);
 		cnt--;
 		System.out.println("아이템 삭제 완료");
-	}
-	
-	public void printSaleList(CartDAO cartDAO) {
-		System.out.println("===== 판매된 아이템 목록 =====");
-		
-		// 판매 갯수 합 구해서 내림차순으로 출력할 것.
 	}
 	
 	public String saveToData() {
