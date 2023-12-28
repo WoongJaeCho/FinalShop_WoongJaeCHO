@@ -41,6 +41,18 @@ public class Member {
 		Member.num = num;
 	}
 
+	public int getMemberNum() {
+		return memberNum;
+	}
+
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
 	@Override
 	public String toString() {
 		return "[%4d] [%10s] [%10s] [%10s]".formatted(memberNum,id,pw,memberName);
