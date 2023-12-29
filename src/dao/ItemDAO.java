@@ -3,6 +3,11 @@ package dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import dto.Item;
 import util.Util;
@@ -46,12 +51,44 @@ public class ItemDAO {
 	}
 	private void printItemsList() {
 		System.out.println("===== 카테고리별 아이템 목록 =====");
+		ArrayList<Item> temp = new ArrayList<>();
+		for(Item i : itemList) {
+			temp.add(i);
+		}
 		// 카테고리별 내림차순으로 정리할 것.
 		// 같은 카테고리 내에서 오름차순.
-		Collections.sort(itemList);
-		for(Item i : itemList) {
-			System.out.println(i);
+		Collections.sort(temp);
+		for(Item t : temp) {
+			System.out.println(t);
 		}
+	}
+	
+	public void printSaleList(CartDAO cartDAO) {
+		System.out.println("===== 판매된 아이템 목록 =====");
+		if(cnt==0) {
+			System.out.println("판매된 아이템이 없습니다.");
+			return;
+		}
+		Map<String, Integer> map = new HashMap<>();
+		for(Item i : itemList) {
+			int count = cartDAO.countSoldOneItem(i.getItemNum());
+			if(count!=0) map.put(i.getItemName(), count);
+		}
+		
+		List<String> keys = new ArrayList<>(map.keySet());
+		
+		Collections.sort(keys, (o1,o2) -> map.get(o2).compareTo(map.get(o1)));
+		
+		for(String key : keys) {
+			for(Item i : itemList) {
+				if(i.getItemName().equals(key)) {
+					System.out.println(i+" "+map.get(key)+"개");
+				}
+			}
+		}
+		
+		//countList.forEach((key, value) -> System.out.println(key+" "+value+"개"));
+		// 판매 갯수 합 구해서 내림차순으로 출력할 것.
 	}
 	
 	public String[] oneItemInfo(int itemNum) {

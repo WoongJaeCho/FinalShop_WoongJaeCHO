@@ -82,21 +82,14 @@ public class CartDAO {
 		return true;
 	}
 	
-	public void printSaleList(ItemDAO itemDAO) {
-		System.out.println("===== 판매된 아이템 목록 =====");
-		ArrayList<Integer> itemNumList = new ArrayList<Integer>();
-		for(int i=1; i<=itemDAO.getCnt() ;i+=1) {
-			int sum = 0;
-			for(Cart c : cartList) {
-				if(i==c.getItemNum()) {
-					sum+=c.getItemCnt();
-				}
+	public int countSoldOneItem(int itemNum) {
+		int sum = 0;
+		for(Cart c : cartList) {
+			if(itemNum==c.getItemNum()) {
+				sum+=c.getItemCnt();
 			}
-			itemNumList.add(sum);
-			sum = 0;
 		}
-		System.out.println(itemNumList);
-		// 판매 갯수 합 구해서 내림차순으로 출력할 것.
+		return sum;
 	}
 	
 	public void deleteOneItem(int itemNum) {

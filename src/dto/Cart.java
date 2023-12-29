@@ -1,6 +1,6 @@
 package dto;
 
-public class Cart {
+public class Cart{
 	private static int num;
 	private int cartNum;
 	private String id;

@@ -31,8 +31,8 @@ public class BoardDAO {
 		int sel = Util.getValue("삭제할 게시글 번호 ", 1, Board.getNum());
 		for(int i=0; i<cnt; i+=1) {
 			if(boardList.get(i).getId().equals(id)) {
-				if(i==sel) {
-					return i-1;
+				if(boardList.get(i).getBoradNum()==sel) {
+					return i;
 				}
 			}
 		}
@@ -80,7 +80,7 @@ public class BoardDAO {
 						.format(DateTimeFormatter
 						.ofPattern("yyyy-MM-dd"));
 		Board b = new Board(boardNum, title, contents, id, today, 0);
-		b.setNum(boardNum+1);
+		b.setNum(boardNum);
 		boardList.add(b);
 		cnt++;
 		System.out.print("["+boardNum+"]");
